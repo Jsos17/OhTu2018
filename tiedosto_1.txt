@@ -2,3 +2,6 @@
 12412
 muutoksia
 muutoksiaaa
+
+muutoksia: git add -p käyttö
+
