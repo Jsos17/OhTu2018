@@ -2,4 +2,6 @@
 /build/
 /.nb-gradle/
 /.gradle/
-
+/RiippuvuuksienInjektointi1/.nb-gradle/
+/RiippuvuuksienInjektointi1/.gradle/
+/RiippuvuuksienInjektointi1/build/
