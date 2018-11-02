@@ -67,7 +67,7 @@ public class StatisticsTest {
 
     @Test
     public void pisteporssiListausToimii1() {
-        List<Player> scorers = stats.topScorers(4);
+        List<Player> scorers = stats.topScorers(5);
         assertEquals("Gretzky", scorers.get(0).getName());
         assertEquals("Lemieux", scorers.get(1).getName());
         assertEquals("Yzerman", scorers.get(2).getName());
@@ -77,14 +77,30 @@ public class StatisticsTest {
 
     @Test
     public void pisteporssiListausToimii2() {
-        List<Player> scorers = stats.topScorers(1);
+        List<Player> scorers = stats.topScorers(2);
         assertEquals("Gretzky", scorers.get(0).getName());
         assertEquals("Lemieux", scorers.get(1).getName());
     }
 
     @Test
     public void pisteporssiListausToimii3() {
-        List<Player> scorers = stats.topScorers(-1);
+        List<Player> scorers = stats.topScorers(0);
         assertEquals(0, scorers.size());
+    }
+
+    @Test
+    public void pisteporssiListausToimii4() {
+        List<Player> scorers = stats.topScorers(-5);
+        assertEquals(0, scorers.size());
+    }
+
+    @Test
+    public void pisteporssiListausToimii5() {
+        List<Player> scorers = stats.topScorers(10);
+        assertEquals("Gretzky", scorers.get(0).getName());
+        assertEquals("Lemieux", scorers.get(1).getName());
+        assertEquals("Yzerman", scorers.get(2).getName());
+        assertEquals("Kurri", scorers.get(3).getName());
+        assertEquals("Semenko", scorers.get(4).getName());
     }
 }
