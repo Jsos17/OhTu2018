@@ -12,7 +12,8 @@ public class Main {
         System.out.println("");
         
         System.out.println("Top scorers");
-        for (Player player : stats.topScorers(10) ) {
+        final int listHowMany = 10;
+        for (Player player : stats.topScorers(listHowMany) ) {
             System.out.println( player );
         }        
     }
