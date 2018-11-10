@@ -4,10 +4,10 @@ import java.util.*;
 
 public class Varasto implements VarastoInterface {
 
-    private KirjapitoInterface kirjanpito;
+    private KirjanpitoInterface kirjanpito;
     private HashMap<Tuote, Integer> saldot;  
     
-    public Varasto(KirjapitoInterface kp) {
+    public Varasto(KirjanpitoInterface kp) {
         kirjanpito = kp;
         saldot = new HashMap<Tuote, Integer>();
         alustaTuotteet();
