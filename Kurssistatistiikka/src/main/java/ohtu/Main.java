@@ -48,10 +48,6 @@ public class Main {
             jsArr.add(parsedData.get(keyIter.next()));
         }
 
-        for (int i = 0; i < jsArr.size(); i++) {
-            System.out.println(jsArr.get(i));
-        }
-
         CourseStats[] stats = mapper.fromJson(jsArr, CourseStats[].class);
         int studTotal = 0;
         int exerTotal = 0;
