@@ -43,6 +43,6 @@ public class Submission {
 
     @Override
     public String toString() {
-        return "" + course + ", viikko " + week + " tehtyjä tehtäviä yhteensä " + exercises.size() + " aikaa kului " + hours + " tuntia tehdyt tehtävät: " + exercises.toString();
+        return "viikko " + week + ":";
     }
 }
