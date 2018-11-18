@@ -40,6 +40,35 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
+        if (username.matches("[a-z]{3,}")) {
+            for (User user : userDao.listAll()) {
+                if (user.getUsername().equals(username)) {
+                    return true;
+                }
+            }
+        } else {
+            return true;
+        }
+
+        if (password.length() >= 8) {
+            int digits = 0;
+            int specials = 0;
+            for (int i = 0; i < password.length(); i++) {
+                if (Character.isDigit(password.charAt(i))) {
+                    digits++;
+                }
+
+                if (!Character.isLetterOrDigit(password.charAt(i)) && !Character.isSpaceChar(password.charAt(i))) {
+                    specials++;
+                }
+            }
+
+            if (digits == 0 && specials == 0) {
+                return true;
+            }
+        } else {
+            return true;
+        }
 
         return false;
     }
