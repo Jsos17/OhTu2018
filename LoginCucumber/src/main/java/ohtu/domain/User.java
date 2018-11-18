@@ -1,9 +1,17 @@
 package ohtu.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class User {
 
     private String username;
     private String password;
+
+    public User() {
+        this.username = "";
+        this.password = "";
+    }
 
     public User(String username, String password) {
         this.username = username;
