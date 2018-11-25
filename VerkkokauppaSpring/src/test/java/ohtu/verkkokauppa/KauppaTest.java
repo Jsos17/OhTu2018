@@ -13,7 +13,7 @@ import org.junit.Test;
  *
  * @author jpssilve
  */
-public class PankkiTest {
+public class KauppaTest {
 
     Pankki pankki;
     Viitegeneraattori viite;
@@ -95,5 +95,81 @@ public class PankkiTest {
         k.tilimaksu("Code monkey", "00700");
 
         verify(pankki).tilisiirto("Code monkey", 17, "00700", "33333-44455", 10);
+    }
+
+    @Test
+    public void aloitaAsiointiNollaaEdellisenAsioinnin() {
+        when(viite.uusi()).thenReturn(337);
+
+        when(varasto.saldo(0)).thenReturn(15);
+        when(varasto.haeTuote(0)).thenReturn(new Tuote(0, "Pepsi", 3));
+
+        when(varasto.saldo(1)).thenReturn(15);
+        when(varasto.haeTuote(1)).thenReturn(new Tuote(0, "maito", 10));
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(0);
+        k.lisaaKoriin(0);
+        k.tilimaksu("Code monkey", "00700");
+
+        verify(pankki).tilisiirto("Code monkey", 337, "00700", "33333-44455", 6);
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(0);
+        k.lisaaKoriin(0);
+        k.lisaaKoriin(1);
+        k.tilimaksu("Hero coder", "78115");
+
+        verify(pankki).tilisiirto("Hero coder", 337, "78115", "33333-44455", 16);
+    }
+
+    @Test
+    public void jokaiselleAsioinnilleOmaViite() {
+        when(viite.uusi()).
+                thenReturn(17).
+                thenReturn(29).
+                thenReturn(97);
+
+        when(varasto.saldo(0)).thenReturn(15);
+        when(varasto.haeTuote(0)).thenReturn(new Tuote(0, "Pepsi", 3));
+
+        when(varasto.saldo(1)).thenReturn(15);
+        when(varasto.haeTuote(1)).thenReturn(new Tuote(0, "maito", 10));
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(0);
+        k.lisaaKoriin(0);
+        k.tilimaksu("Code monkey", "00700");
+
+        verify(pankki).tilisiirto("Code monkey", 17, "00700", "33333-44455", 6);
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(0);
+        k.lisaaKoriin(0);
+        k.lisaaKoriin(1);
+        k.tilimaksu("Hero coder", "78115");
+
+        verify(pankki).tilisiirto("Hero coder", 29, "78115", "33333-44455", 16);
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.tilimaksu("bot", "00000");
+
+        verify(pankki).tilisiirto("bot", 97, "00000", "33333-44455", 10);
+    }
+
+    @Test
+    public void tuotteenPoistoOstoskoristaPalauttaaVarastoon() {
+        when(viite.uusi()).thenReturn(337);
+
+        when(varasto.saldo(0)).thenReturn(21);
+        Tuote tuote = new Tuote(0, "Pepsi", 3);
+        when(varasto.haeTuote(0)).thenReturn(tuote);
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(0);
+        k.lisaaKoriin(0);
+        k.poistaKorista(0);
+        verify(varasto).palautaVarastoon(tuote);
     }
 }
