@@ -1,80 +1,67 @@
 package ohtu;
 
+import java.util.HashMap;
+
 public class TennisGame {
-    
+
     private int m_score1 = 0;
     private int m_score2 = 0;
-    private String player1Name;
-    private String player2Name;
+    private final String player1Name;
+    private final String player2Name;
+    private HashMap<Integer, String> evenScores;
+    private HashMap<Integer, String> individualScores;
+    private HashMap<Integer, String> gameStates;
 
     public TennisGame(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
+        initEvenScores();
+        initIndividualScores();
+        initGameStates();
+    }
+
+    private void initEvenScores() {
+        evenScores = new HashMap<>();
+        evenScores.put(0, "Love-All");
+        evenScores.put(1, "Fifteen-All");
+        evenScores.put(2, "Thirty-All");
+        evenScores.put(3, "Forty-All");
+    }
+
+    private void initIndividualScores() {
+        individualScores = new HashMap<>();
+        individualScores.put(0, "Love");
+        individualScores.put(1, "Fifteen");
+        individualScores.put(2, "Thirty");
+        individualScores.put(3, "Forty");
+    }
+
+    private void initGameStates() {
+        gameStates = new HashMap<>();
+        gameStates.put(1, "Advantage player1");
+        gameStates.put(-1, "Advantage player2");
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
+        if (playerName.equals("player1")) {
             m_score1 += 1;
-        else
+        } else {
             m_score2 += 1;
+        }
     }
 
     public String getScore() {
-        String score = "";
-        int tempScore=0;
-        if (m_score1==m_score2)
-        {
-            switch (m_score1)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                case 3:
-                        score = "Forty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
+        if (m_score1 == m_score2) {
+            return evenScores.getOrDefault(m_score1, "Deuce");
+        } else if (m_score1 >= 4 || m_score2 >= 4) {
+            int minusResult = m_score1 - m_score2;
+            if (minusResult >= 2) {
+                return "Win for player1";
+            } else {
+                return gameStates.getOrDefault(minusResult, "Win for player2");
             }
+        } else {
+            return individualScores.get(m_score1) + "-" + individualScores.get(m_score2);
         }
-        else if (m_score1>=4 || m_score2>=4)
-        {
-            int minusResult = m_score1-m_score2;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
-        }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = m_score1;
-                else { score+="-"; tempScore = m_score2;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
-        }
-        return score;
     }
 }
