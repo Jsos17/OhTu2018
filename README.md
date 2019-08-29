@@ -5,7 +5,6 @@
 # ohtu-viikko2
 
 # ohtu-viikko3
-ohtu-viikko3/master
 
 # ohtu-viikko4
 
