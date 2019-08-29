@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ohtu-viikko1
 
 [![Build Status](https://travis-ci.org/Jsos17/ohtu-viikko1.svg?branch=master)](https://travis-ci.org/Jsos17/ohtu-viikko1)
@@ -15,8 +16,8 @@ muutos1
 muutos2
 muutos3
 
-ohtu-viikko4/master
-
 # ohtu-viikko5
-ohtu-viikko5/master
 # ohtu-viikko6
+
+# ohtu-viikko7
+
